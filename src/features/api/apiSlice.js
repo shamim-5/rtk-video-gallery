@@ -21,6 +21,13 @@ export const apiSlice = createApi({
         return queryString;
       },
     }),
+    addVideo: builder.mutation({
+      query: (data) => ({
+        url: `/videos`,
+        method: "POST",
+        body: data,    
+      }),
+    }),
   }),
 });
 
