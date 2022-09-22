@@ -9,8 +9,21 @@ export const apiSlice = createApi({
     getVideos: builder.query({
       query: () => "/videos",
     }),
+    getVideo: builder.query({
+      query: (videoId) => `/videos/${videoId}`,
+    }),
+    // ?title_like=css&title_like=tailwind&_limit=4
+    getReletedVideos: builder.query({
+      query: ({ id, title }) => {
+        const tags = title.split(" ");
+        const likes = tags.map((tag) => `title_like=${tag}`);
+        const queryString = `/videos?${likes.join("&")}&_limit=4`;
+        return queryString;
+      },
+    }),
   }),
 });
 
+console.log(apiSlice);
 
-export const {useGetVideosQuery } = apiSlice;
+export const { useGetVideosQuery, useGetVideoQuery, useGetReletedVideosQuery, useAddVideoMutation } = apiSlice;
